@@ -1,0 +1,40 @@
+Arguments: 
+  /Users/roodzfernando/.nvm/versions/node/v16.7.0/bin/node /usr/local/Cellar/yarn/1.22.10/libexec/bin/yarn.js add express
+
+PATH: 
+  /Users/roodzfernando/.rvm/gems/ruby-2.6.5/bin:/Users/roodzfernando/.rvm/gems/ruby-2.6.5@global/bin:/Users/roodzfernando/.rvm/rubies/ruby-2.6.5/bin:/Users/roodzfernando/.nvm/versions/node/v16.7.0/bin:/usr/local/opt/openjdk/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/Postgres.app/Contents/Versions/latest/bin:/Users/roodzfernando/Library/Android/sdk/emulator:/Users/roodzfernando/Library/Android/sdk/tools:/Users/roodzfernando/Library/Android/sdk/tools/bin:/Users/roodzfernando/Library/Android/sdk/platform-tools:/Users/roodzfernando/.rvm/bin
+
+Yarn version: 
+  1.22.10
+
+Node version: 
+  16.7.0
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/express: ETIMEDOUT
+      at Timeout._onTimeout (/usr/local/Cellar/yarn/1.22.10/libexec/lib/cli.js:141409:19)
+      at listOnTimeout (node:internal/timers:557:17)
+      at processTimers (node:internal/timers:500:7)
+
+npm manifest: 
+  {
+    "name": "store_api",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

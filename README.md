@@ -44,4 +44,4 @@ For development, you will only need Node.js and a node global package, Yarn, Mon
 
 ## Acknowledgments
 
-- Hat tip to anyone whose code, Murat Korkmaz his design was used for inspiration.
+- Hat tip to anyone whose code, his design was used for inspiration.

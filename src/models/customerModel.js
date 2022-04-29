@@ -12,9 +12,9 @@ customerSchema = new Schema({
     required: true
   },
   phone: {
-    type: String,
-    maxlength: 11,
-    minlength: 11,
+    type: Number,
+    maxlength: 8,
+    minlength: 8,
     required: true
   },
   points: {

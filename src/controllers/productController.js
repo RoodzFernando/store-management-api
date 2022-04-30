@@ -15,6 +15,11 @@ const addProduct = async (req, res) => {
   }
 }
 
+const checkout = async (req, res) => {
+  res.send('NOT IMPLEMENTED YET')
+}
+
 module.exports = {
-  addProduct
+  addProduct,
+  checkout
 }

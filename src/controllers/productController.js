@@ -1,3 +1,5 @@
+const async = require('async')
+const { readData } = require('../helpers/productHelper')
 const Category = require('../models/categoryModel')
 const Product = require('../models/productModel')
 
@@ -16,7 +18,17 @@ const addProduct = async (req, res) => {
 }
 
 const checkout = async (req, res) => {
-  res.send('NOT IMPLEMENTED YET')
+  try{
+    const { customer, products } = req.body
+    async.map(req.body, readData, (err, results) => {
+      const respData = (results)
+      res.send(respData)
+    })
+    console.log('Done running!')
+  } catch(e) {
+    console.log(e)
+    res.status(400).send({message: "Something went wrong!"})
+  }
 }
 
 module.exports = {

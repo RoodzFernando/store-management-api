@@ -1,5 +1,5 @@
 const async = require('async')
-const { readData } = require('../helpers/productHelper')
+const { readProductData, readCustomerDetail } = require('../helpers/productHelper')
 const Category = require('../models/categoryModel')
 const Product = require('../models/productModel')
 
@@ -19,10 +19,16 @@ const addProduct = async (req, res) => {
 
 const checkout = async (req, res) => {
   try{
-    const { customer, products } = req.body
-    async.map(req.body, readData, (err, results) => {
-      const respData = (results)
-      res.send(respData)
+    const { details:{products, phone} } = req.body
+    async.map(products, readProductData, async (err, results) => {
+      const {lastName, firstName, points} = await readCustomerDetail(phone, 5) //Add 5 points for now on each purchase
+      res.send({
+        results,
+        lastName,
+        firstName,
+        points,
+        phone
+      })
     })
     console.log('Done running!')
   } catch(e) {

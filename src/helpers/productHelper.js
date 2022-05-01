@@ -1,15 +1,10 @@
-const productModel = require("../models/productModel")
+const Product = require("../models/productModel")
 const Customer = require("../models/customerModel")
 
-const readData = async (data) => {
+const readProductData = async (data) => {
   try{
-    const { products, customer } = data
-    console.log((data))
-    if (phone) {
-      const customer = await Customer.findOne({phone})
-      console.log(customer)
-    }
-    const product = await productModel.findOne({ productTag })
+    const { productTag, quantity } = data
+    const product = await Product.findOne({ productTag })
     if (quantity > product.quantity) throw new Error('That product ran out of stock')
     product.quantity -= quantity
     product.save()
@@ -25,7 +20,19 @@ const readData = async (data) => {
   }
 }
 
+const readCustomerDetail = async (phone, points) => {
+  try {
+    const customer = await Customer.findOne({phone})
+    customer.points += points
+    customer.save()
+    return customer
+  } catch(e) {
+    throw new Error('Something went wrong')
+  }
+}
+
 
 module.exports = {
-  readData
+  readProductData,
+  readCustomerDetail
 }

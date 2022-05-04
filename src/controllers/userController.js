@@ -2,6 +2,8 @@ const User = require('../models/userModel')
 
 const signUp = async (req, res) => {
   try {
+    const loggedInUser = req.user
+    if (loggedInUser.privilege !== 'admin') throw new Error("Not authorized action")
     const user = new User(req.body)
     await user.save()
     res.status(201).send(user)

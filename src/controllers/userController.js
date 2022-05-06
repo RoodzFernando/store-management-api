@@ -1,15 +1,19 @@
 const User = require('../models/userModel')
 
-const signUp = async (req, res) => {
+const signUp = async (req, res, next) => {
   try {
     const loggedInUser = req.user
-    if (loggedInUser.privilege !== 'admin') throw new Error("Not authorized action")
-    const user = new User(req.body)
-    await user.save()
-    res.status(201).send(user)
+    if (loggedInUser.privilege === 'admin') {
+      const user = new User(req.body)
+      await user.save()
+      res.status(201).send(user)
+    }
+    throw new Error()
+
   } catch (e) {
-    console.log(e)
-    res.status(400).send({message: 'Something went wrong'})
+    console.error(e)
+    next(e)
+    res.status(400).send()
   }
 }
 

@@ -25,8 +25,7 @@ const login = async (req, res) => {
     if (!user) res.status(404).send({message: "Unable to login"})
     res.send({user, token})
   } catch (e) {
-    console.log(e)
-    res.status(400).send()
+    res.status(400).send({message: e.toString()})
   }
 }
 

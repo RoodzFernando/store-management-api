@@ -10,6 +10,16 @@ const productSchema = new Schema({
     type: String,
     required: true
   },
+  model: {
+    type: String,
+    // required: true
+  },
+  size: {
+    type: String,
+    required: true
+  },
+  brand: String,
+  color: String,
   quantity: {
     type: Number,
     default: 0

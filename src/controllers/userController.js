@@ -25,7 +25,18 @@ const login = async (req, res) => {
     if (!user) res.status(404).send({message: "Unable to login"})
     res.send({user, token})
   } catch (e) {
-    res.status(400).send({message: e.toString()})
+    res.status(400).send({message: e.message})
+  }
+}
+
+const findUser = async (req, res) => {
+  try {
+    const { id } = req.params
+    const user = await User.findById(id)
+    if (!user) throw new Error()
+    res.send(user)
+  } catch (err) {
+    res.status(404).send({message: 'Error!'})
   }
 }
 
@@ -36,5 +47,6 @@ const updateUser = async (req, res) => {
 module.exports = {
   signUp,
   login,
-  updateUser
+  updateUser,
+  findUser
 }

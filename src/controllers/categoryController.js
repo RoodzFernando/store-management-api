@@ -10,6 +10,16 @@ const addCategory = async (req, res) => {
   }
 }
 
+const getCategories = async (req, res) => {
+  try {
+    const categories = await Category.find()
+    res.send({categories})
+  } catch (err) {
+    res.status(500).send({message: 'Internal error'})
+  }
+}
+
 module.exports = {
-  addCategory
+  addCategory,
+  getCategories
 }

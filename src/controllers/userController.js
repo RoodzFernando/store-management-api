@@ -3,12 +3,15 @@ const User = require('../models/userModel')
 const signUp = async (req, res, next) => {
   try {
     const loggedInUser = req.user
-    if (loggedInUser.privilege === 'admin') {
+    if (loggedInUser.privilege !== 'admin') {
+      throw new Error()
+    }
+    // if (loggedInUser.privilege === 'admin') {
       const user = new User(req.body)
       await user.save()
       res.status(201).send(user)
-    }
-    throw new Error()
+    // }
+    // throw new Error()
 
   } catch (e) {
     console.error(e)
@@ -19,6 +22,7 @@ const signUp = async (req, res, next) => {
 
 const login = async (req, res) => {
   const { email, password } = req.body
+  console.log(email, password)
   try {
     const user = await User.findByCredentials(email, password)
     const token = await user.generateAuthToken()

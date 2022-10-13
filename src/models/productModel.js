@@ -16,7 +16,7 @@ const productSchema = new Schema({
   },
   size: {
     type: String,
-    required: true
+    // required: true
   },
   brand: String,
   color: String,

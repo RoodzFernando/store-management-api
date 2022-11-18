@@ -14,6 +14,20 @@ const userDefs = gql`
   type Query {
     getUsers: [User!]!
   }
+
+
+  type loginPayload {
+    lastName: String
+    firstName: String
+    email: String
+    privilege: String
+    token: String
+  }
+
+  type Mutation {
+    register: User
+    login(email: String!, password: String!): loginPayload
+  }
 `
 
 module.exports = { userDefs }

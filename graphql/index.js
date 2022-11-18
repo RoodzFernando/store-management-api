@@ -6,12 +6,13 @@ const { DB_URL } = process.env
 
 
 const startConnection = async () => {
-  const result = await connect(DB_URL)
+  await connect(DB_URL)
   const server = new ApolloServer({
     typeDefs,
     resolvers,
-    context: {
-      db: connection.db
+    context({ req }) {
+      // const token = req.header
+      return { db: connection.db }
     }
   })
   server.listen().then(({ url }) => {

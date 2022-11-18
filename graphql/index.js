@@ -5,8 +5,6 @@ const { connect, connection } = require('mongoose')
 const { DB_URL } = process.env
 
 
-
-
 const startConnection = async () => {
   const result = await connect(DB_URL)
   const server = new ApolloServer({

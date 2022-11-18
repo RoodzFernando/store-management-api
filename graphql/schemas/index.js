@@ -1,4 +1,4 @@
-const { userDefs } = require("./user");
+const { userDefs } = require("./user.schema");
 
 const rootDefs = {
   ...userDefs

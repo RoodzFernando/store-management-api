@@ -1,8 +1,9 @@
 
 module.exports = {
   Query: {
-    greet() {
-      return 'This is an example'
+    getUsers: async (_, __, { db }) => {
+      const users = await db.collection('users').find({}).toArray()
+      return users
     }
   }
 }

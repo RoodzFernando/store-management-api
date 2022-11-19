@@ -1,6 +1,6 @@
 const { ApolloServer } = require('apollo-server')
-const resolvers = require('./resolvers/index')
-const typeDefs = require('./schemas/index')
+const resolvers = require('./resolvers/rootResolvers')
+const typeDefs = require('./schemas/rootSchema')
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const jwt = require('jsonwebtoken')
 const { DB_URL, DB_NAME, SECRET } = process.env

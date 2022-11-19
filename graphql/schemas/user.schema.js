@@ -5,16 +5,20 @@ const userDefs = gql`
     SELLER
     ADMIN
   }
+
   type User {
     lastName: String!
     firstName: String!
     email: String!
     privilege: role!
   }
-  type Query {
-    getUsers: [User!]!
+  input UserInput {
+    lastName: String!
+    firstName: String!
+    password: String!
+    email: String!
+    privilege: role!
   }
-
 
   type loginPayload {
     lastName: String
@@ -24,8 +28,13 @@ const userDefs = gql`
     token: String
   }
 
+
+  type Query {
+    getUsers: [User!]!
+  }
+
   type Mutation {
-    register: User
+    register(input: UserInput!): User
     login(email: String!, password: String!): loginPayload
   }
 `

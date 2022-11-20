@@ -22,12 +22,18 @@ const productDefs = gql`
     price: Float!
   }
 
+  # type ReceiptPayload {
+    # TODO
+  # }
+
   type Query {
     getProducts: [Product!]!
   }
 
   type Mutation {
     addProduct(input: ProductInput): Product!
+    # addToCart() TODO
+    # chechout():
   }
 `
 

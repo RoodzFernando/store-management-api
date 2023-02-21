@@ -12,7 +12,7 @@ const productDefs = gql`
   }
 
   type Category {
-    categoryId: String!
+    _id: String!
     categoryName: String!
   }
 
@@ -23,7 +23,7 @@ const productDefs = gql`
 
   type Brand {
     _id: ID!
-    name: String!
+    brandName: String!
   }
 
   # type ProductBrand {
@@ -42,10 +42,9 @@ const productDefs = gql`
   #   categoryId: String!
   # }
 
-  input CategoryInput {
-    categoryId: String!
-    categoryName: String!
-  }
+  # input CategoryInput {
+  #   categoryName: String!
+  # }
 
   input ProductInput {
     productTag: String!
@@ -53,6 +52,8 @@ const productDefs = gql`
     description: String!
     quantity: Int!
     price: Float!
+    brandName: String!
+    categoryName: String!
   }
 
   type Query {
@@ -64,8 +65,8 @@ const productDefs = gql`
 
   type Mutation {
     addProduct(input: ProductInput): Product!
-    createCategory(input: CategoryInput): Category!
-    createBrand(brand: String!): Brand!
+    createCategory(categoryName: String!): Category!
+    createBrand(brandName: String!): Brand!
     # createProductCategory(input: ProductCategoryInput): ProductCategory!
   }
 `

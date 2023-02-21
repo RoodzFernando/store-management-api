@@ -20,7 +20,7 @@ const userSchema = new Schema({
     type: String,
     required: true,
     unique: true,
-    validate (value) {
+    validate(value) {
       if (!isEmail(value)) throw new Error('Invalid Email')
     }
   },
@@ -31,11 +31,11 @@ const userSchema = new Schema({
   },
   privilege: {
     type: String,
-    enum: ['seller', 'admin']
+    enum: ['SELLER', 'ADMIN']
   }
 })
 
-userSchema.methods.toJSON = function () {
+/* userSchema.methods.toJSON = function () {
   const user = this
   const userObj = user.toObject()
   delete userObj.password
@@ -63,6 +63,6 @@ userSchema.pre('save', async function (next) {
     user.password = await bcrypt.hash(user.password, 8)
     next()
   }
-})
+}) */
 
 module.exports = model('User', userSchema)

@@ -1,15 +1,21 @@
-const { ApolloServer } = require('apollo-server')
+const { ApolloServer } = require('@apollo/server')
+const { expressMiddleware } = require('@apollo/server/express4')
+const express = require('express')
+const http = require('http')
+const bodyParser = require('body-parser')
+const cors = require('cors')
 const resolvers = require('./resolvers/rootResolvers')
 const typeDefs = require('./schemas/rootSchema')
-const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
+const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
 const { DB_URL, DB_NAME, SECRET } = process.env
+const models = require('../src/models/index')
 
-const getUserFromToken = async (token, db) => {
+const getUserFromToken = async (token) => {
   if (!token) return null
   const decoded = jwt.verify(token, SECRET)
   if (!decoded?.user_id) return null
-  const [user] = await db.collection('users').find({ _id: ObjectId(decoded.user_id) }).toArray()
+  const user = await models.User.findById(decoded.user_id)
   const { _id, lastName, firstName, email, privilege } = user
   return {
     _id,
@@ -21,24 +27,39 @@ const getUserFromToken = async (token, db) => {
 }
 
 const startConnection = async () => {
-  const client = new MongoClient(DB_URL, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
-  await client.connect()
-  const db = client.db(DB_NAME)
+  const app = express()
+
+  const httpServer = http.createServer(app)
+
   const server = new ApolloServer({
     typeDefs,
     resolvers,
-    context: async ({ req }) => {
-      const { authorization } = req.headers
-      const user = await getUserFromToken(authorization, db)
-      return {
-        db,
-        user
-      }
-    }
   })
-  server.listen().then(({ url }) => {
-    console.log(`🚀  Server ready at ${url}`);
-  });
+
+  mongoose.connect(`${DB_URL}/${DB_NAME}`, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true
+  })
+  await server.start()
+  console.log('Connected to MongoDB');
+  await new Promise((resolve) => httpServer.listen({ port: 4000 }, resolve));
+  console.log(`🚀 Server ready at http://localhost:4000/`);
+
+  app.use(
+    '/api/graphql',
+    cors(),
+    bodyParser.json(),
+    expressMiddleware(server, {
+      context: async ({ req }) => {
+        const { authorization } = req.headers
+        const user = await getUserFromToken(authorization)
+        return {
+          user,
+          models
+        }
+      }
+    }),
+  );
 }
 
 module.exports = {
